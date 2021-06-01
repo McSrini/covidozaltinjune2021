@@ -85,6 +85,7 @@ public class Lower_ModelBuilder extends Base_ModelBuilder {
         }
         
         numericExpr_LHS = cplex.sum (numericExpr_LHS,- LL_I.get(ii) ) ;
+        numericExpr_LHS = cplex.sum(numericExpr_LHS,cplex.prod(-ONE,  s_Vars[ii])) ;
         
         numericExpr_LHS = cplex.prod (numericExpr_LHS,DOUBLE_ONE/( UL_I.get(ii)- LL_I.get(ii))) ;
         
@@ -93,7 +94,7 @@ public class Lower_ModelBuilder extends Base_ModelBuilder {
             numericExpr_RHS = cplex.sum (numericExpr_RHS, cplex.prod (Math.pow( DOUBLE_TWO, -el), x_VarList.get(ii)[el])) ;
         }
         
-        numericExpr_RHS = cplex.sum(numericExpr_RHS, s_Vars[ii]) ;
+        
         
         cplex.addEq(numericExpr_LHS, numericExpr_RHS);
     }
