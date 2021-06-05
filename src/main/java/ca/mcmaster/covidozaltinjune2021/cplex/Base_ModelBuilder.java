@@ -52,6 +52,7 @@ public abstract class Base_ModelBuilder {
         cplex.add(f_Vars);
          
         addConstraint_6C();
+         
         
         addMinObjective();
         
@@ -64,16 +65,31 @@ public abstract class Base_ModelBuilder {
           
         buildModel();
 
-        //solve both upper and lower cplex
         cplex.solve();
         System.out.println ("cplex.getStatus() "+ cplex.getStatus()) ;
         if (cplex.getStatus().equals(Optimal)){
             System.out.println("\n\nBound is : "+cplex.getObjValue() + "\n\n" );
+            
+            System.out.println("\n\n   W values " + "\n\n" );
+            for (IloNumVar []wvars : w_VarList){
+                System.out.print("\n\n");
+                for (IloNumVar var: wvars){
+                    System.out.print(cplex.getValue(var)+ " ,") ;
+                }
+            }
+            
+            System.out.println("\n\n   F values " + "\n\n" );
+            for (IloNumVar var : f_Vars){
+                System.out.print(cplex.getValue(var)+ " ,") ;
+            }
+            System.out.print("\n\n");
         }
         
         
                 
     }
+    
+   
     
     protected void addMinObjective () throws IloException{
         IloNumExpr objective = cplex.numExpr();

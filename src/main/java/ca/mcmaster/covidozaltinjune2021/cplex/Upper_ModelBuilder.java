@@ -100,7 +100,7 @@ public class Upper_ModelBuilder extends Base_ModelBuilder {
         numericExpr_LHS = cplex.prod (numericExpr_LHS,DOUBLE_ONE/( UL_I.get(ii)- LL_I.get(ii))) ;
         
         IloNumExpr numericExpr_RHS  = cplex.numExpr();
-        for (int el = ZERO; el< Parameters.BIN_VARS_FOR_DISCRETIZATION_P; el++){
+        for (int el = ZERO; el< ONE+ Parameters.BIN_VARS_FOR_DISCRETIZATION_P; el++){
             numericExpr_RHS = cplex.sum (numericExpr_RHS, cplex.prod (Math.pow( DOUBLE_TWO, -el), x_VarList.get(ii)[el])) ;
         }
         
